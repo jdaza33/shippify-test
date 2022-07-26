@@ -21,26 +21,29 @@ Base de datos: MongoDB
 Pequeña API que gestiona las transacciones de un cliente de un banco.
 Me tome la libertad de modificarla un poco para ajustarla a las necesidades.
 
-- El esquema de banco acepta los siguientes campos, se hizo de este modo para parametrizar las tasas y comisiones del banco. 
-name --> Nombre del banco
-tax --> IVA
-insurance --> Porcentaje del seguro
-insuranceTop --> Valor fijo para condicionar el seguro 
-service --> Porcentaje del servicio
-timesGoToBank --> Valor fijo del numero de veces que el cliente puede ir al banco
-extraPrice --> Valor fijo del monto a sumar si va despues de cierto periodo
-commissionCredit --> Porcentaje de la comision de tarjeta de debito
-commissionDebit --> Porcentaje de la comision de tarjeta de credito
-amountMonth --> Valor fijo del monto mensual para considerar las comisiones por tarjeta
+#### El esquema de banco acepta los siguientes campos, se hizo de este modo para parametrizar las tasas y comisiones del banco. 
 
-- El esquema de cliente
--- name --> Nombre del cliente
-- El esquema de transacciones
--- bankId --> ID del banco
--- clientId --> ID del cliente
--- amount --> Monto de la transaccion
--- datetime --> Fecha en formato 'AAAA-MM-DD'
--- event --> Enum de [debit, credit]
+- name --> Nombre del banco
+- tax --> IVA
+- insurance --> Porcentaje del seguro
+- insuranceTop --> Valor fijo para condicionar el seguro 
+- service --> Porcentaje del servicio
+- timesGoToBank --> Valor fijo del numero de veces que el cliente puede ir al banco
+- extraPrice --> Valor fijo del monto a sumar si va despues de cierto periodo
+- commissionCredit --> Porcentaje de la comision de tarjeta de debito
+- commissionDebit --> Porcentaje de la comision de tarjeta de credito
+- amountMonth --> Valor fijo del monto mensual para considerar las comisiones por tarjeta
+
+#### El esquema de cliente
+- name --> Nombre del cliente
+
+
+#### El esquema de transacciones
+- bankId --> ID del banco
+- clientId --> ID del cliente
+- amount --> Monto de la transaccion
+- datetime --> Fecha en formato 'AAAA-MM-DD'
+- event --> Enum de [debit, credit]
 
  
 
