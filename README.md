@@ -1,14 +1,12 @@
-# TEST - 3DLinks | NodeJS
+# Test Shippify | NodeJS
 
 REST API para una prueba de trabajo creado por José Bolívar.
-Tecnologias: NodeJS, Sequelize, Stripe y Elephantsql.
-Base de datos: PostgresSQL
+Tecnologias: NodeJS, Mongoose y ExpressJS.
+Base de datos: MongoDB
 
-### DEMO --> https://test-3dlinks.herokuapp.com/
+### DEMO --> https://shippify-test.herokuapp.com/
 
-### POSTMAN --> https://documenter.getpostman.com/view/2941896/Uz5MEZPs
-
-### DIAGRAMA DE BASE DE DATOS --> https://i.ibb.co/kJh4CtN/bd-proa2.png
+### POSTMAN --> https://documenter.getpostman.com/view/2941896/UzXLzJUY#db1f3ffb-9adb-49f1-809c-4fab76c211cd
 
 ## Install
 
@@ -18,23 +16,42 @@ Base de datos: PostgresSQL
 
     npm start --> running on port 3001 by default
 
-# Diagrama de base de datos
-
-![diagrama](https://i.ibb.co/kJh4CtN/bd-proa2.png)
-
 # Contexto
 
-La API puede crear y listar usuarios, productos y tarjetas. Todo esto para crear una transacción.
+Pequeña API que gestiona las transacciones de un cliente de un banco.
+Me tome la libertad de modificarla un poco para ajustarla a las necesidades.
 
-- Para crear una tarjeta se uso una función de la pasarela de pago **[Stripe](https://stripe.com/es-us)**, esta toma los datos de una tarjeta y crea un token para poder usarlo a posterior. Esto se realizo para evitar guardar datos sensible en nuestra base de datos.
-- Para crear una tarjeta es necesario estar logueado, ya que el endpoint pide un token bearer.
-- Para crear una transacción es necesario haber creado un usuario, una tarjeta y un producto. Este servicio se conecta con **[Stripe](https://stripe.com/es-us)** para realizar un cargo sobre el token de la tarjeta antes creado.
-- Por ultimo, para crear la base de datos se uso [**Elephantsql**](https://www.elephantsql.com/) para tenerlo en la nube.
+- El esquema de banco acepta los siguientes campos, se hizo de este modo para parametrizar las tasas y comisiones del banco. 
+-- name --> Nombre del banco
+-- tax --> IVA
+-- insurance --> Porcentaje del seguro
+-- insuranceTop --> Valor fijo para condicionar el seguro 
+-- service --> Porcentaje del servicio
+-- timesGoToBank --> Valor fijo del numero de veces que el cliente puede ir al banco
+-- extraPrice --> Valor fijo del monto a sumar si va despues de cierto periodo
+-- commissionCredit --> Porcentaje de la comision de tarjeta de debito
+-- commissionDebit --> Porcentaje de la comision de tarjeta de credito
+-- amountMonth --> Valor fijo del monto mensual para considerar las comisiones por tarjeta
+
+- El esquema de cliente
+-- name --> Nombre del cliente
+- El esquema de transacciones
+-- bankId --> ID del banco
+-- clientId --> ID del cliente
+-- amount --> Monto de la transaccion
+-- datetime --> Fecha en formato 'AAAA-MM-DD'
+-- event --> Enum de [debit, credit]
+
+ 
 
 # ¿Cómo usar?
 
-1.  Cree un usuario
-2.  Inicie sesión con el usuario creado
-3.  Cree una tarjeta enviando el token que recibió del inicio de sesión
-4.  Cree un producto
-5.  Por ultimo, realice una transacción enviando la información antes creada. Para mas información, lea la [API](https://documenter.getpostman.com/view/2941896/Uz5MEZPs).
+1.  Cree un banco y configure los parametros de comisiones
+2.  Cree un cliente
+3.  Cree cuantas transacciones desee asociada a un cliente y un banco
+4.  Por ultimo, consulte el resumen. Más información, consulte la API.
+
+
+### Por tema de tiempo no pude hacer otras cosas, mil disculpas..
+
+
